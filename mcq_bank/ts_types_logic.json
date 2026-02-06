@@ -1,0 +1,132 @@
+[
+    {
+        "id": "ts_ct_01",
+        "topic": "Conditional Types - Distribution",
+        "question": "What is the result of `type T = string | number extends string ? true : false` vs `type U<X> = X extends string ? true : false; type V = U<string | number>`?",
+        "options": [
+            "T is false; V is boolean (true | false)",
+            "Both are true",
+            "Both are false",
+            "Both are boolean"
+        ],
+        "answer": "T is false; V is boolean (true | false)",
+        "explanation": "In T, the whole union is compared to string (it doesn't extend). In U, since X is a naked type parameter, the union distributes, evaluating string and number separately: (true | false)."
+    },
+    {
+        "id": "ts_ct_02",
+        "topic": "Conditional Types - Constraints",
+        "question": "How do you prevent a conditional type from distributing over a union?",
+        "options": [
+            "Wrap the type in brackets: `[T] extends [U] ? X : Y`.",
+            "Use the 'non-distributive' keyword.",
+            "Conditional types always distribute.",
+            "Use a double extends: `T extends U ? (T extends U ? X : Y) : Y`."
+        ],
+        "answer": "Wrap the type in brackets: `[T] extends [U] ? X : Y`.",
+        "explanation": "Wrapping the checked type in a tuple (like [T]) prevents the compiler from seeing it as a naked type parameter, thus stopping distribution."
+    },
+    {
+        "id": "ts_ct_03",
+        "topic": "Conditional Types - Infer",
+        "question": "What does `type Unwrap<T> = T extends Promise<infer U> ? U : T` do?",
+        "options": [
+            "If T is a Promise, it returns the type it resolves to; otherwise, it returns T.",
+            "It makes T a Promise.",
+            "It resolves the Promise at runtime.",
+            "It extracts all properties from T."
+        ],
+        "answer": "If T is a Promise, it returns the type it resolves to; otherwise, it returns T.",
+        "explanation": "The 'infer' keyword allows the compiler to pattern-match and capture a sub-segment of a type for use in the 'true' branch."
+    },
+    {
+        "id": "ts_ct_04",
+        "topic": "Conditional Types - Never Type",
+        "question": "When distributing over `never`, what is the result of `type T<X> = X extends any ? true : false; type Res = T<never>`?",
+        "options": [
+            "never",
+            "true",
+            "false",
+            "boolean"
+        ],
+        "answer": "never",
+        "explanation": "Distribution over an empty union (never) results in an empty union (never). The conditional branch is never even evaluated."
+    },
+    {
+        "id": "ts_ct_05",
+        "topic": "Conditional Types - Recursive Types",
+        "question": "How can you use conditional types to create a type that deeply unwraps Promises (e.g., Promise<Promise<string>> -> string)?",
+        "options": [
+            "type DeepAwaited<T> = T extends Promise<infer U> ? DeepAwaited<U> : T;",
+            "type DeepAwaited<T> = Awaited<T>;",
+            "Both A and B (TS 4.5+ internally uses a similar recursive logic).",
+            "Recursive types are not allowed in TypeScript."
+        ],
+        "answer": "Both A and B (TS 4.5+ internally uses a similar recursive logic).",
+        "explanation": "Recursive conditional types allow for complex transformations. TypeScript 4.5 introduced the built-in `Awaited` utility which handles this robustly."
+    },
+    {
+        "id": "ts_mt_01",
+        "topic": "Mapped Types - Modifiers",
+        "question": "What does `{ -readonly [P in keyof T]?: T[P] }` do?",
+        "options": [
+            "Removes the readonly status and makes all properties optional.",
+            "Makes properties readonly and required.",
+            "Removes optionality and makes properties readonly.",
+            "It is invalid syntax."
+        ],
+        "answer": "Removes the readonly status and makes all properties optional.",
+        "explanation": "The '-' prefix removes a modifier. The '?' suffix adds the optional modifier."
+    },
+    {
+        "id": "ts_mt_02",
+        "topic": "Mapped Types - Key Remapping",
+        "question": "Which syntax is used to change the names of keys in a mapped type (Key Remapping)?",
+        "options": [
+            "{ [P in keyof T as NewKey]: T[P] }",
+            "{ [P in keyof T]: T[P] } as NewKey",
+            "{ NewKey for P in keyof T: T[P] }",
+            "{ rename P to NewKey in T }"
+        ],
+        "answer": "{ [P in keyof T as NewKey]: T[P] }",
+        "explanation": "The 'as' clause in a mapped type allows you to remap the key using template literals or other string-manipulating types."
+    },
+    {
+        "id": "ts_mt_03",
+        "topic": "Mapped Types - Filtering Keys",
+        "question": "How can you filter out keys from a mapped type using 'as'?",
+        "options": [
+            "Remap the key to 'never': `[P in keyof T as T[P] extends string ? P : never]: T[P]`",
+            "Use the 'delete' keyword.",
+            "Mapped types cannot filter keys.",
+            "Set the value to 'never'."
+        ],
+        "answer": "Remap the key to 'never': `[P in keyof T as T[P] extends string ? P : never]: T[P]`",
+        "explanation": "If the 'as' clause evaluates to 'never', that key is omitted from the resulting type."
+    },
+    {
+        "id": "ts_mt_04",
+        "topic": "Mapped Types - Record Utility",
+        "question": "The built-in `Record<K, V>` is implemented using which feature?",
+        "options": [
+            "Mapped Types",
+            "Conditional Types",
+            "Interfaces",
+            "Enums"
+        ],
+        "answer": "Mapped Types",
+        "explanation": "Record is defined as `{ [P in K]: V }`, which is the core syntax of mapped types."
+    },
+    {
+        "id": "ts_mt_05",
+        "topic": "Mapped Types - Deep Mapping",
+        "question": "Why is it difficult to create a truly generic 'DeepPartial' using only mapped types?",
+        "options": [
+            "Mapped types are shallow by default; recursion is needed for nested objects.",
+            "Mapped types cannot be used on objects.",
+            "Recursion is too slow.",
+            "TypeScript forbids nested mapped types."
+        ],
+        "answer": "Mapped types are shallow by default; recursion is needed for nested objects.",
+        "explanation": "A standard mapped type only iterates over the top-level keys. To handle nested objects, the mapping must recursively call itself on the property values."
+    }
+]

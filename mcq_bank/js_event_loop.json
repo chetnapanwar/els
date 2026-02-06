@@ -1,0 +1,132 @@
+[
+    {
+        "id": "js_el_01",
+        "topic": "Event Loop - Microtask Checkpointing",
+        "question": "What is the order of execution for the following?\n\nsetTimeout(() => console.log('task'), 0);\nPromise.resolve().then(() => {\n  console.log('micro 1');\n  Promise.resolve().then(() => console.log('micro 2'));\n});\nconsole.log('sync');",
+        "options": [
+            "sync, micro 1, micro 2, task",
+            "sync, micro 1, task, micro 2",
+            "sync, task, micro 1, micro 2",
+            "micro 1, micro 2, sync, task"
+        ],
+        "answer": "sync, micro 1, micro 2, task",
+        "explanation": "Synchronous code runs first. Then, the microtask queue is processed until empty, which includes microtasks nested within microtasks. Only after the microtask queue is empty does the event loop move to the task queue (macrotasks) like setTimeout."
+    },
+    {
+        "id": "js_el_02",
+        "topic": "Event Loop - Animation Frames",
+        "question": "Where does `requestAnimationFrame` typically fit in the event loop relative to Tasks and Microtasks in most modern browsers?",
+        "options": [
+            "Before microtasks",
+            "After microtasks but before the next task (usually before repaint)",
+            "At the exact same time as setTimeout(0)",
+            "Before any synchronous code runs"
+        ],
+        "answer": "After microtasks but before the next task (usually before repaint)",
+        "explanation": "The rendering pipeline (including rAF) runs after the microtask queue is exhausted and before the next macrotask is picked up, provided the browser decides it's time to repaint."
+    },
+    {
+        "id": "js_el_03",
+        "topic": "Event Loop - MutationObserver",
+        "question": "MutationObserver callbacks are executed as...",
+        "options": [
+            "Macrotasks",
+            "Microtasks",
+            "Synchronous events",
+            "Animation frames"
+        ],
+        "answer": "Microtasks",
+        "explanation": "MutationObserver is specifically designed to be part of the microtask queue to allow for efficient batching of DOM changes before a repaint."
+    },
+    {
+        "id": "js_el_04",
+        "topic": "Event Loop - Node.js process.nextTick",
+        "question": "In Node.js, how does `process.nextTick` differ from `setImmediate`?",
+        "options": [
+            "nextTick runs before the next microtask; setImmediate runs in the next 'check' phase.",
+            "setImmediate runs before nextTick.",
+            "They are identical and interchangeable.",
+            "nextTick is for I/O; setImmediate is for CPU tasks."
+        ],
+        "answer": "nextTick runs before the next microtask; setImmediate runs in the next 'check' phase.",
+        "explanation": "process.nextTick is processed immediately after the current operation, even before other microtasks (like Promises). setImmediate schedules work for the upcoming turn of the event loop."
+    },
+    {
+        "id": "js_el_05",
+        "topic": "Event Loop - Async/Await",
+        "question": "What happens to the remaining code in an async function after an `await` expression?",
+        "options": [
+            "It is wrapped in a microtask and scheduled for later execution.",
+            "It continues to run synchronously if the promise is already resolved.",
+            "It is added to the macrotask queue.",
+            "It blocks the main thread until the promise resolves."
+        ],
+        "answer": "It is wrapped in a microtask and scheduled for later execution.",
+        "explanation": "Even if the awaited promise is already resolved, the engine yields control and schedules the remainder of the function as a microtask."
+    },
+    {
+        "id": "js_el_06",
+        "topic": "Event Loop - Starvation",
+        "question": "Which of the following can 'starve' the event loop, preventing UI updates or timers from firing?",
+        "options": [
+            "Infinitely recursive promises",
+            "Infinite loop of setTimeouts",
+            "Heavy CSS animations",
+            "Multiple fetch requests"
+        ],
+        "answer": "Infinitely recursive promises",
+        "explanation": "Because microtasks are processed until the queue is empty, adding a new microtask from within a microtask will keep the engine in the microtask phase forever, starving macrotasks (timers) and the rendering phase."
+    },
+    {
+        "id": "js_el_07",
+        "topic": "Event Loop - UI Responsiveness",
+        "question": "Why is `setTimeout(fn, 0)` often used to fix UI lag in long-running JS loops?",
+        "options": [
+            "It moves the logic to a macrotask, allowing the browser to perform a repaint between cycles.",
+            "It runs the code in a separate thread.",
+            "It prioritizes the code over microtasks.",
+            "It automatically optimizes the internal JS engine."
+        ],
+        "answer": "It moves the logic to a macrotask, allowing the browser to perform a repaint between cycles.",
+        "explanation": "Repaints happen between macrotasks. By breaking a long task into smaller macrotasks, you give the browser a window to update the screen."
+    },
+    {
+        "id": "js_el_08",
+        "topic": "Event Loop - queueMicrotask",
+        "question": "What is the main benefit of using `queueMicrotask(() => {})` over `Promise.resolve().then(() => {})`?",
+        "options": [
+            "It communicates intent more clearly and avoids the overhead of creating a Promise object.",
+            "It runs faster than a Promise.",
+            "It runs in a macrotask instead of a microtask.",
+            "It allows for better error handling."
+        ],
+        "answer": "It communicates intent more clearly and avoids the overhead of creating a Promise object.",
+        "explanation": "queueMicrotask is the standard explicit way to schedule a microtask without the semantic side effects or object overhead of Promises."
+    },
+    {
+        "id": "js_el_09",
+        "topic": "Event Loop - Worker Thread",
+        "question": "Does code running inside a Web Worker share the same event loop as the main thread?",
+        "options": [
+            "No, each Worker has its own independent event loop.",
+            "Yes, they share a single global event loop.",
+            "Yes, but they have separate microtask queues.",
+            "No, Workers do not use an event loop."
+        ],
+        "answer": "No, each Worker has its own independent event loop.",
+        "explanation": "Web Workers operate on separate threads and have their own distinct event loop, task queue, and microtask queue."
+    },
+    {
+        "id": "js_el_10",
+        "topic": "Event Loop - SetTimeout Accuracy",
+        "question": "What is the minimum delay guaranteed for `setTimeout(fn, 0)` when nested more than 5 levels deep in modern browsers?",
+        "options": [
+            "4ms",
+            "1ms",
+            "0ms",
+            "10ms"
+        ],
+        "answer": "4ms",
+        "explanation": "HTML5 specifications mandate a minimum 4ms clamp for nested timers (5+ levels), which prevents infinite recursion of timers from locking up the browser completely."
+    }
+]
