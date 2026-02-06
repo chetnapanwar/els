@@ -1,0 +1,142 @@
+[
+    {
+        "id": "cpp_mod_01",
+        "topic": "Modern C++ - Modules",
+        "level": 5,
+        "question": "What is the primary compilation advantage of C++20 Modules over traditional Header files?",
+        "options": [
+            "Modules are compiled into a binary representation precisely once, avoiding the redundant parsing of headers in every translation unit.",
+            "Modules automatically inline all functions for better performance.",
+            "Modules eliminate the need for a linker.",
+            "Modules allow C++ code to run without a main function."
+        ],
+        "answer": "Modules are compiled into a binary representation precisely once, avoiding the redundant parsing of headers in every translation unit.",
+        "explanation": "Header files are textually included (copy-pasted) and re-parsed/re-compiled for every `.cpp` file. Modules provide an isolation boundary and a pre-compiled format, significantly reducing build times."
+    },
+    {
+        "id": "cpp_mod_02",
+        "topic": "Modern C++ - Ranges",
+        "level": 5,
+        "question": "In the C++20 Ranges library, what is the 'vibe' of using Range Adaptors (e.g., `| views::filter | views::transform`)?",
+        "options": [
+            "Functional-style lazy evaluation: operations are only performed when the resulting range is actually iterated.",
+            "Eager evaluation that creates a temporary copy of the container at each step.",
+            "A way to automatically parallelize loops using SIMD.",
+            "Purely a syntactic sugar for `std::for_each` loops."
+        ],
+        "answer": "Functional-style lazy evaluation: operations are only performed when the resulting range is actually iterated.",
+        "explanation": "Views do not own the data and do not copy it. They arecomposible templates that apply logic on-the-fly as you traverse the data, similar to lazy sequences in other languages."
+    },
+    {
+        "id": "cpp_mod_03",
+        "topic": "Modern C++ - Spaceship Operator",
+        "level": 5,
+        "question": "What kind of return type does the 'Spaceship Operator' (`operator<=>`) return and what does it represent?",
+        "options": [
+            "A comparison category (like `std::strong_ordering` or `std::partial_ordering`) which indicates the nature of the equality/ordering.",
+            "A simple integer (-1, 0, 1).",
+            "A boolean (true if less than).",
+            "A pointer to the smaller object."
+        ],
+        "answer": "A comparison category (like `std::strong_ordering` or `std::partial_ordering`) which indicates the nature of the equality/ordering.",
+        "explanation": "`operator<=>` (Three-way comparison) allows the compiler to generate all six comparison operators (`<`, `!=`, etc.) automatically. Different categories represent different mathematical properties (e.g., `partial_ordering` for floating point where NaN exists)."
+    },
+    {
+        "id": "cpp_mod_04",
+        "topic": "Modern C++ - consteval",
+        "level": 5,
+        "question": "What is the strict requirement of C++20's `consteval` compared to `constexpr`?",
+        "options": [
+            "A `consteval` function *must* be evaluated at compile time; it cannot be called with runtime arguments.",
+            "A `consteval` function must return a constant pointer.",
+            "A `consteval` function can only be used in header files.",
+            "There is no difference; `consteval` is an alias."
+        ],
+        "answer": "A `consteval` function *must* be evaluated at compile time; it cannot be called with runtime arguments.",
+        "explanation": "`constexpr` functions *can* be called at runtime if the arguments are not constants. `consteval` (immediate functions) produce a compiler error if they cannot be fully evaluated during the build process."
+    },
+    {
+        "id": "cpp_mod_05",
+        "topic": "Modern C++ - Constraints",
+        "level": 5,
+        "question": "How does the `requires` clause in C++20 enhance generic programming beyond just Concepts?",
+        "options": [
+            "It allows checking for the existence of specific members, types, or valid expressions on a type within the template declaration.",
+            "It requires the user to provide a license key for the code.",
+            "It enforces that the template must be instantiated by the end of the file.",
+            "It is a mandatory keyword for all functions in C++20."
+        ],
+        "answer": "It allows checking for the existence of specific members, types, or valid expressions on a type within the template declaration.",
+        "explanation": "The `requires` expression is the engine behind Concepts. You can write ad-hoc requirements such as `{ t.begin() } -> std::same_as<typename T::iterator>;`."
+    },
+    {
+        "id": "cpp_mod_06",
+        "topic": "Modern C++ - Designated Initializers",
+        "level": 5,
+        "question": "What is a major limitation of Designated Initializers (e.g., `Point p = {.x = 1, .y = 2};`) in C++20 compared to the C implementation?",
+        "options": [
+            "C++ requires that members be initialized in the exact order they are declared in the struct.",
+            "C++ only allows them for classes with constructors.",
+            "C++ designated initializers are not supported for arrays.",
+            "There are no limitations; they are identical."
+        ],
+        "answer": "C++ requires that members be initialized in the exact order they are declared in the struct.",
+        "explanation": "C allows out-of-order initialization; C++ strictly enforces declaration order to maintain deterministic initialization and destruction behavior."
+    },
+    {
+        "id": "cpp_mod_07",
+        "topic": "Modern C++ - Lambda enhancements",
+        "level": 5,
+        "question": "In C++20, how can you explicitly specify template parameters for a lambda?",
+        "options": [
+            "Using the syntax `[] <typename T> (T x) { ... }`",
+            "Using `[] (auto<T> x) { ... }`",
+            "Template lambdas are not supported; you must use a functor class.",
+            "By prefixing the lambda with the `template` keyword."
+        ],
+        "answer": "Using the syntax `[] <typename T> (T x) { ... }`",
+        "explanation": "This allows you to name the types in generic lambdas (C++14 used only `auto`), which is useful for accessing nested types or traits within the lambda body."
+    },
+    {
+        "id": "cpp_mod_08",
+        "topic": "Modern C++ - std::span",
+        "level": 5,
+        "question": "What is the primary use case for `std::span` (C++20)?",
+        "options": [
+            "A non-owning view over a contiguous sequence of objects (like a pointer + length), providing a safe and generic way to pass arrays/vectors.",
+            "A replacement for `std::vector` that auto-sizes.",
+            "A way to store objects on multiple physical memory banks.",
+            "A thread-safe wrapper for any container."
+        ],
+        "answer": "A non-owning view over a contiguous sequence of objects (like a pointer + length), providing a safe and generic way to pass arrays/vectors.",
+        "explanation": "`std::span` replaces the old 'pointer + size' API pattern. It is lightweight (trivial to copy) and works with arrays, `std::vector`, and `std::array` interchangeably."
+    },
+    {
+        "id": "cpp_mod_09",
+        "topic": "Modern C++ - std::expected",
+        "level": 5,
+        "question": "In C++23, what does `std::expected<T, E>` provide for error handling?",
+        "options": [
+            "A vocabulary type that contains either a valid value of type T or an error value of type E (sum type).",
+            "A way to predict if a function will throw an exception.",
+            "An automated retry mechanism for network calls.",
+            "A replacement for `std::optional` that handles NULL pointers."
+        ],
+        "answer": "A vocabulary type that contains either a valid value of type T or an error value of type E (sum type).",
+        "explanation": "It provides a modernized alternative to error codes or exceptions, allowing for monadic error handling without the overhead of stack unwinding."
+    },
+    {
+        "id": "cpp_mod_10",
+        "topic": "Modern C++ - Deduce this",
+        "level": 5,
+        "question": "What is 'Deducing this' in C++23 and what problem does it solve?",
+        "options": [
+            "It allows passing the object instance as the first explicit parameter to a member function, unifying the syntax for const/non-const and ref-qualified overloads.",
+            "It is a debugger feature to infer the name of a variable.",
+            "It allows a function to automatically discover its own memory address.",
+            "It prevents `this` from being used in static methods."
+        ],
+        "answer": "It allows passing the object instance as the first explicit parameter to a member function, unifying the syntax for const/non-const and ref-qualified overloads.",
+        "explanation": "Previously, if you wanted a function to work for `const`, non-`const`, `&`, and `&&` callers, you had to write 4 overloads. With 'Deducing this' (`void func(this Self&& self)`), you can write one template."
+    }
+]
