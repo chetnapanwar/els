@@ -1,0 +1,142 @@
+[
+    {
+        "id": "py_func_01",
+        "topic": "Functions - Args and Kwargs",
+        "level": 2,
+        "question": "What is the data type of `args` in `def func(*args):`?",
+        "options": [
+            "Tuple",
+            "List",
+            "Dictionary",
+            "Set"
+        ],
+        "answer": "Tuple",
+        "explanation": "`*args` collects positional arguments into a tuple."
+    },
+    {
+        "id": "py_func_02",
+        "topic": "Functions - Keyword Arguments",
+        "level": 2,
+        "question": "What is the data type of `kwargs` in `def func(**kwargs):`?",
+        "options": [
+            "Dictionary",
+            "List",
+            "Tuple",
+            "String"
+        ],
+        "answer": "Dictionary",
+        "explanation": "`**kwargs` collects keyword arguments into a dictionary."
+    },
+    {
+        "id": "py_func_03",
+        "topic": "Functions - Lambda",
+        "level": 2,
+        "question": "Which of the following defines a simple anonymous function that squares its input?",
+        "options": [
+            "lambda x: x**2",
+            "def(x): return x**2",
+            "func x: x**2",
+            "x => x**2"
+        ],
+        "answer": "lambda x: x**2",
+        "explanation": "Lambda functions in Python are defined using the `lambda` keyword: `lambda arguments: expression`."
+    },
+    {
+        "id": "py_func_04",
+        "topic": "Functions - Decorators",
+        "level": 2,
+        "question": "What is a decorator in Python?",
+        "options": [
+            "A function that takes another function as argument and extends its behavior without explicitly modifying it.",
+            "A class for UI styling.",
+            "A method to import modules.",
+            "A variable type."
+        ],
+        "answer": "A function that takes another function as argument and extends its behavior without explicitly modifying it.",
+        "explanation": "Decorators are a structural design pattern (often implemented as closures) that allow adding behavior to functions or classes."
+    },
+    {
+        "id": "py_func_05",
+        "topic": "Functions - Nonlocal",
+        "level": 2,
+        "question": "What does the `nonlocal` keyword do?",
+        "options": [
+            "It allows assigning to variables in the nearest enclosing scope that is not global.",
+            "It makes a variable global.",
+            "It prevents a variable from being modified.",
+            "It deletes a variable."
+        ],
+        "answer": "It allows assigning to variables in the nearest enclosing scope that is not global.",
+        "explanation": "Useful in nested functions (closures) to modify a variable defined in the outer function."
+    },
+    {
+        "id": "py_func_06",
+        "topic": "Functions - Global",
+        "level": 2,
+        "question": "If you want to modify a global variable inside a function, what must you do?",
+        "options": [
+            "Declare it using the `global` keyword.",
+            "Just assign it normally.",
+            "Use `self.variable`.",
+            "It is impossible."
+        ],
+        "answer": "Declare it using the `global` keyword.",
+        "explanation": "Without `global`, an assignment `x = 1` creates a new local variable `x`, shadowing the global one."
+    },
+    {
+        "id": "py_func_07",
+        "topic": "Functions - Recursive Limits",
+        "level": 2,
+        "question": "What happens if a recursive function calls itself too many times without a base case?",
+        "options": [
+            "RecursionError (Maximum recursion depth exceeded)",
+            "MemoryError",
+            "SystemError",
+            "The program runs forever."
+        ],
+        "answer": "RecursionError (Maximum recursion depth exceeded)",
+        "explanation": "Python has a recursion limit (usually 1000) to prevent a stack overflow from crashing the C runtime."
+    },
+    {
+        "id": "py_func_08",
+        "topic": "Functions - Map",
+        "level": 2,
+        "question": "What does `map(func, iterable)` return in Python 3?",
+        "options": [
+            "An iterator (map object)",
+            "A list",
+            "A set",
+            "A tuple"
+        ],
+        "answer": "An iterator (map object)",
+        "explanation": "In Python 2, it returned a list. In Python 3, `map` creates a lazy iterator for memory efficiency."
+    },
+    {
+        "id": "py_func_09",
+        "topic": "Functions - Docstrings",
+        "level": 2,
+        "question": "How do you access the docstring of a function `my_func`?",
+        "options": [
+            "my_func.__doc__",
+            "my_func.doc",
+            "help(my_func)",
+            "Both A and C"
+        ],
+        "answer": "Both A and C",
+        "explanation": "The `__doc__` attribute stores the raw string. `help()` formats and displays it."
+    },
+    {
+        "id": "py_func_10",
+        "topic": "Functions - Parameter Unpacking",
+        "level": 2,
+        "question": "If `my_list = [1, 2]`, how do you pass these as separate arguments to `func(a, b)`?",
+        "options": [
+            "func(*my_list)",
+            "func(my_list)",
+            "func(**my_list)",
+            "func(&my_list)"
+        ],
+        "answer": "func(*my_list)",
+        "explanation": "The `*` operator unpacks the list into positional arguments."
+    }
+]
