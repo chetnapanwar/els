@@ -1,0 +1,132 @@
+[
+    {
+        "id": "js_cs_01",
+        "topic": "Closures - Lexical Environment",
+        "question": "What happens if a closure references a variable that is later changed in the parent scope?",
+        "options": [
+            "The closure will see the updated value when it is next called.",
+            "The closure keeps a snapshot of the value at the time of its creation.",
+            "The closure will throw a ReferenceError.",
+            "The parent variable becomes immutable."
+        ],
+        "answer": "The closure will see the updated value when it is next called.",
+        "explanation": "Closures capture a reference to the variable (specifically the binding in the environment), not just the value. Any changes to that variable in the enclosing scope are reflected in the closure."
+    },
+    {
+        "id": "js_cs_02",
+        "topic": "Closures - Loop Context (Var vs Let)",
+        "question": "In the following code, what is logged for each function call?\n\nconst fns = [];\nfor (var i = 0; i < 3; i++) {\n  fns.push(() => i);\n}\nfns.forEach(fn => console.log(fn()));",
+        "options": [
+            "0, 1, 2",
+            "3, 3, 3",
+            "2, 2, 2",
+            "undefined, undefined, undefined"
+        ],
+        "answer": "3, 3, 3",
+        "explanation": "Because 'var' is function-scoped (or global), there is only one 'i' variable for the entire loop. By the time the functions are called, 'i' has reached 3. If 'let' were used, it would create a new binding for each iteration."
+    },
+    {
+        "id": "js_cs_03",
+        "topic": "Closures - Private Variables",
+        "question": "How can closures be used to simulate private variables in ES5?",
+        "options": [
+            "By returning functions from a parent scope that have exclusive access to variables in that parent scope.",
+            "By using the 'private' keyword.",
+            "By prefixing variables with an underscore.",
+            "By freezing the object."
+        ],
+        "answer": "By returning functions from a parent scope that have exclusive access to variables in that parent scope.",
+        "explanation": "This is known as the Module Pattern. Variables declared in the outer function's scope are inaccessible from the outside but accessible to the inner functions returned."
+    },
+    {
+        "id": "js_cs_04",
+        "topic": "Closures - Garbage Collection",
+        "question": "A function 'A' returns function 'B', which references a large array 'data' defined in 'A'. Function 'B' is stored in a global variable. What happens to 'data'?",
+        "options": [
+            "It remains in memory as long as function 'B' exists.",
+            "It is garbage collected as soon as function 'A' returns.",
+            "It is moved to the task queue.",
+            "It is cloned into function 'B' and then deleted from 'A'."
+        ],
+        "answer": "It remains in memory as long as function 'B' exists.",
+        "explanation": "This is a potential memory leak. The closure 'B' holds a reference to its lexical environment, which contains 'data'. As long as 'B' is reachable, 'data' cannot be reclaimed by the garbage collector."
+    },
+    {
+        "id": "js_cs_05",
+        "topic": "Closures - IIFE",
+        "question": "What was the primarily purpose of using IIFEs (Immediately Invoked Function Expressions) before the introduction of block-level 'let/const'?",
+        "options": [
+            "To create a new scope to avoid polluting the global namespace.",
+            "To improve performance.",
+            "To allow for asynchronous execution.",
+            "To create classes."
+        ],
+        "answer": "To create a new scope to avoid polluting the global namespace.",
+        "explanation": "IIFEs were the standard way to create localized scope for variables, preventing them from becoming global variables."
+    },
+    {
+        "id": "js_cs_06",
+        "topic": "Closures - Function Factories",
+        "question": "What will `add5(10)` return given:\n\nfunction makeAdder(x) {\n  return function(y) {\n    return x + y;\n  };\n}\nconst add5 = makeAdder(5);",
+        "options": [
+            "15",
+            "5",
+            "10",
+            "Error"
+        ],
+        "answer": "15",
+        "explanation": "makeAdder(5) returns a closure where 'x' is bound to 5. Calling that closure with 10 results in 5 + 10 = 15."
+    },
+    {
+        "id": "js_cs_07",
+        "topic": "Closures - Shallow vs Deep Binding",
+        "question": "Which statement is true about how modern JS engines optimize closures?",
+        "options": [
+            "They may analyze which variables are actually used and only retain those (Partial Context Retention).",
+            "They always retain the entire scope for safety.",
+            "They convert all closures to global variables at runtime.",
+            "They don't optimize closures because they are too dynamic."
+        ],
+        "answer": "They may analyze which variables are actually used and only retain those (Partial Context Retention).",
+        "explanation": "Engines like V8 perform sophisticated alias analysis to avoid keeping unused heavy variables in memory, though this is an implementation detail and not guaranteed by the spec."
+    },
+    {
+        "id": "js_cs_08",
+        "topic": "Closures - Shadowing",
+        "question": "What is the output?\n\nlet x = 10;\nfunction outer() {\n  let x = 20;\n  return () => x;\n}\nconsole.log(outer()());",
+        "options": [
+            "20",
+            "10",
+            "undefined",
+            "ReferenceError"
+        ],
+        "answer": "20",
+        "explanation": "The inner function looks up 'x' in the nearest scope first (the outer function). This 'shadows' the 'x' in the global scope."
+    },
+    {
+        "id": "js_cs_09",
+        "topic": "Closures - Event Handlers",
+        "question": "Why can closures in event handlers within loops lead to unexpected behavior?",
+        "options": [
+            "If the handler references a variable that changes (like 'var i' in a loop), all handlers will see the final value.",
+            "Event handlers do not support closures.",
+            "They cause the browser to crash.",
+            "They are executed synchronously."
+        ],
+        "answer": "If the handler references a variable that changes (like 'var i' in a loop), all handlers will see the final value.",
+        "explanation": "Just like the 'fns' example, a 'var' loop variable is shared by all closure handlers created in that loop."
+    },
+    {
+        "id": "js_cs_10",
+        "topic": "Closures - Global This",
+        "question": "Does a closure also capture the 'this' context of its parent function?",
+        "options": [
+            "No, regular functions have their own 'this' which is determined by how they are called.",
+            "Yes, 'this' is part of the lexical environment.",
+            "Only if it's an arrow function.",
+            "Only if it's a strict mode function."
+        ],
+        "answer": "No, regular functions have their own 'this' which is determined by how they are called.",
+        "explanation": "Standard functions do not close over 'this' or 'arguments'. Arrow functions are an exception; they lexically bind 'this' from their creation context."
+    }
+]
