@@ -9,9 +9,15 @@ DB_NAME = os.getenv("DB_NAME", "fastapi_db")
 DB_USER = os.getenv("DB_USER", "postgres")
 DB_PASS = os.getenv("DB_PASS", "password")
 
-DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+# Use SQLite as fallback if DB_HOST is localhost and we aren't using Docker
+if DB_HOST == "localhost" and not os.path.exists("/.dockerenv"):
+    DATABASE_URL = "sqlite:///./fastapi_db.db"
+    # SQLite needs a different engine setting for multi-threading
+    engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+else:
+    DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+    engine = create_engine(DATABASE_URL)
 
-engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()

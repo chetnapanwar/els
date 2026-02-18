@@ -1,0 +1,132 @@
+[
+    {
+        "id": "ts_sn_01",
+        "topic": "Soundness - Excess Property Checks",
+        "question": "Why does `const obj: { a: number } = { a: 1, b: 2 };` throw an error, but `const temp = { a: 1, b: 2 }; const obj: { a: number } = temp;` does not?",
+        "options": [
+            "TypeScript performs 'Excess Property Checks' only on fresh object literals.",
+            "The second example is a bug in TypeScript.",
+            "The first example uses strict mode.",
+            "The second example uses type inference."
+        ],
+        "answer": "TypeScript performs 'Excess Property Checks' only on fresh object literals.",
+        "explanation": "To prevent common mistakes, TS checks for extra properties when an object literal is assigned directly. However, for existing references, it only checks that the required properties exist (structural subtyping)."
+    },
+    {
+        "id": "ts_sn_02",
+        "topic": "Soundness - Satisfies",
+        "question": "What is the difference between `const c: Color = 'red'` and `const c = 'red' satisfies Color`?",
+        "options": [
+            "satisfies preserves the specific literal type ('red'), while the annotation widens it to Color.",
+            "annotation is faster.",
+            "satisfies only works for objects.",
+            "There is no difference."
+        ],
+        "answer": "satisfies preserves the specific literal type ('red'), while the annotation widens it to Color.",
+        "explanation": "satisfies validates that a value matches a type without changing the resulting inferred type of the variable."
+    },
+    {
+        "id": "ts_sn_03",
+        "topic": "Soundness - Branded Types",
+        "question": "How do you implement a 'Branded' type for an Email string to ensure only validated emails can be passed to certain functions?",
+        "options": [
+            "type Email = string & { readonly __brand: unique symbol };",
+            "type Email = string | { brand: string };",
+            "interface Email extends String { brand: 'email' }",
+            "type Email = Brand<string, 'email'>"
+        ],
+        "answer": "type Email = string & { readonly __brand: unique symbol };",
+        "explanation": "By intersecting string with an object containing a unique key (the 'brand'), you create a type that is structurally a string but conceptually distinct to the TS compiler."
+    },
+    {
+        "id": "ts_sn_04",
+        "topic": "Soundness - Const Assertions",
+        "question": "What does `const colors = ['red', 'blue'] as const;` do to the resulting type?",
+        "options": [
+            "It becomes a readonly tuple of literals: `readonly [\"red\", \"blue\"]`.",
+            "It becomes an array of strings.",
+            "It makes the array immutable at runtime.",
+            "It is identical to `readonly string[]`."
+        ],
+        "answer": "It becomes a readonly tuple of literals: `readonly [\"red\", \"blue\"]`.",
+        "explanation": "As const assertions tell the compiler to infer the most narrow and immutable type possible for a literal."
+    },
+    {
+        "id": "ts_sn_05",
+        "topic": "Soundness - Non-nullable Assertion",
+        "question": "What is the risk of using the `!` operator (e.g., `user!.name`) heavily in your codebase?",
+        "options": [
+            "It bypasses null/undefined checks, which can lead to runtime crashes if the value is actually null.",
+            "It makes the code slower.",
+            "It increases the bundle size.",
+            "It is deprecated in newer TS versions."
+        ],
+        "answer": "It bypasses null/undefined checks, which can lead to runtime crashes if the value is actually null.",
+        "explanation": "The non-null assertion operator (!) tells the compiler 'trust me, this isn't null', but it provides no runtime protection."
+    },
+    {
+        "id": "ts_dec_01",
+        "topic": "Decorators - Stage 3 Proposal",
+        "question": "In the modern Stage 3 decorator proposal, how do decorators differ from the old experimental version?",
+        "options": [
+            "They use a (value, context) signature and are natively supported in many environments.",
+            "They only work on classes.",
+            "They are executed at runtime using Proxy.",
+            "They require the 'experimentalDecorators' flag."
+        ],
+        "answer": "They use a (value, context) signature and are natively supported in many environments.",
+        "explanation": "The official Stage 3 proposal (TS 5.0+) changed the API significantly to be more robust and standardized."
+    },
+    {
+        "id": "ts_dec_02",
+        "topic": "Decorators - Metadata",
+        "question": "How do you store metadata on a class member in the new Stage 3 decorators?",
+        "options": [
+            "Using `context.metadata` (if available in the environment/polyfill).",
+            "Using `Reflect.defineMetadata`.",
+            "By adding properties to the class prototype directly.",
+            "Metadata is no longer supported."
+        ],
+        "answer": "Using `context.metadata` (if available in the environment/polyfill).",
+        "explanation": "The new proposal includes a metadata property on the context object to allow for standardized metadata storage without external libraries."
+    },
+    {
+        "id": "ts_dec_03",
+        "topic": "Decorators - Execution Order",
+        "question": "What is the order of decorator execution for multiple decorators on the same method: `@a @b method()`?",
+        "options": [
+            "Evaluated top-to-bottom, executed bottom-to-top.",
+            "Evaluated and executed top-to-bottom.",
+            "Evaluated and executed bottom-to-top.",
+            "Random order."
+        ],
+        "answer": "Evaluated top-to-bottom, executed bottom-to-top.",
+        "explanation": "Decorators follow the composition of functions pattern: f(g(x)). Evaluation happens down the list, but execution (the function calls) happens up the list."
+    },
+    {
+        "id": "ts_mer_01",
+        "topic": "Declaration Merging - Namespace/Class",
+        "question": "Why would you merge a namespace with a class of the same name?",
+        "options": [
+            "To add static methods or nested types to the class in a structured way.",
+            "To make the class private.",
+            "To improve compile-time performance.",
+            "It is not allowed."
+        ],
+        "answer": "To add static methods or nested types to the class in a structured way.",
+        "explanation": "Declaration merging allows you to extend the 'value' and 'type' context of a class with additional properties/types from a namespace."
+    },
+    {
+        "id": "ts_mer_02",
+        "topic": "Declaration Merging - Modules",
+        "question": "What is 'Module Augmentation'?",
+        "options": [
+            "Adding new declarations to an existing module from another file.",
+            "Creating new modules at runtime.",
+            "Renaming modules during import.",
+            "Automatically importing all files in a folder."
+        ],
+        "answer": "Adding new declarations to an existing module from another file.",
+        "explanation": "By using `declare module 'pkg-name' { ... }`, you can add types (like new properties to a library's interface) globally."
+    }
+]

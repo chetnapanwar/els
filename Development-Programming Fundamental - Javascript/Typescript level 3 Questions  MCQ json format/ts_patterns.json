@@ -1,0 +1,132 @@
+[
+    {
+        "id": "ts_pat_01",
+        "topic": "Advanced Patterns - Mixins",
+        "question": "In TypeScript, how is a 'Mixin' typically implemented without using the experimental 'abstract class' inheritance?",
+        "options": [
+            "Using a function that takes a constructor and returns a class that extends it.",
+            "By using the 'implements' keyword with multiple classes.",
+            "Using the 'merge' keyword.",
+            "Mixins are not supported in TS."
+        ],
+        "answer": "Using a function that takes a constructor and returns a class that extends it.",
+        "explanation": "TypeScript uses the 'Mixins' pattern where a function acts as a factory, taking a base class and extending it with new functionality."
+    },
+    {
+        "id": "ts_pat_02",
+        "topic": "Advanced Patterns - Opaque Types",
+        "question": "What is an 'Opaque Type' used for?",
+        "options": [
+            "To distinguish between two types that have the same structure (e.g., UserId vs ProductId).",
+            "To hide properties from the debugger.",
+            "To speed up compilation.",
+            "To prevent types from being exported."
+        ],
+        "answer": "To distinguish between two types that have the same structure (e.g., UserId vs ProductId).",
+        "explanation": "Since TS is structural, integers like UserId(number) and ProductId(number) are seen as identical. Opaque types (or Branded types) force the compiler to treat them as distinct."
+    },
+    {
+        "id": "ts_pat_03",
+        "topic": "Advanced Patterns - Lookup Types",
+        "question": "What does `T[K]` signify in a generic context?",
+        "options": [
+            "Indexed Access Type to look up a property type by its key.",
+            "An array of T and K.",
+            "A multiplication operation.",
+            "A dynamic property access at runtime."
+        ],
+        "answer": "Indexed Access Type to look up a property type by its key.",
+        "explanation": "Lookups allow you to retrieve the type of a property directly from another type."
+    },
+    {
+        "id": "ts_pat_04",
+        "topic": "Advanced Patterns - Type Guards",
+        "question": "What is the return type of a custom type guard function?",
+        "options": [
+            "arg is Type",
+            "boolean",
+            "void",
+            "Type"
+        ],
+        "answer": "arg is Type",
+        "explanation": "This is called a Type Predicate. It tells the compiler that if the function returns true, the argument is guaranteed to be of the specified type."
+    },
+    {
+        "id": "ts_pat_05",
+        "topic": "Advanced Patterns - Const Assertions",
+        "question": "Why use `as const` on an object literal?",
+        "options": [
+            "To ensure all properties are readonly and literal types (e.g., 'red' instead of string).",
+            "To make the object immutable at runtime.",
+            "To prevent the object from being exported.",
+            "To allow the object to be modified only in strict mode."
+        ],
+        "answer": "To ensure all properties are readonly and literal types (e.g., 'red' instead of string).",
+        "explanation": "Const assertions narrow literal expressions and make their properties readonly."
+    },
+    {
+        "id": "ts_pat_06",
+        "topic": "Advanced Patterns - Extract vs Exclude",
+        "question": "How does `Extract<T, U>` differ from `Exclude<T, U>`?",
+        "options": [
+            "Extract picks types assignable to U; Exclude removes types assignable to U.",
+            "Exclude picks types; Extract removes them.",
+            "They are identical.",
+            "Extract works for objects; Exclude for unions."
+        ],
+        "answer": "Extract picks types assignable to U; Exclude removes types assignable to U.",
+        "explanation": "These are built-in conditional utility types for filtering unions."
+    },
+    {
+        "id": "ts_pat_07",
+        "topic": "Advanced Patterns - Partial Implementation",
+        "question": "How would you implement `MyPartial<T>` manually using mapped types?",
+        "options": [
+            "type MyPartial<T> = { [P in keyof T]?: T[P] };",
+            "type MyPartial<T> = { optional T };",
+            "type MyPartial<T> = T | undefined;",
+            "interface MyPartial<T> extends T {}"
+        ],
+        "answer": "type MyPartial<T> = { [P in keyof T]?: T[P] };",
+        "explanation": "This uses the optional modifier (?) in a mapped type to make all keys optional."
+    },
+    {
+        "id": "ts_pat_08",
+        "topic": "Advanced Patterns - Parameters Utility",
+        "question": "What does the `Parameters<T>` utility return?",
+        "options": [
+            "A tuple type containing all the types of a function's parameters.",
+            "The number of parameters.",
+            "The first parameter type.",
+            "void"
+        ],
+        "answer": "A tuple type containing all the types of a function's parameters.",
+        "explanation": "Parameters uses `infer` internally to extract the argument list as a tuple."
+    },
+    {
+        "id": "ts_pat_09",
+        "topic": "Advanced Patterns - ThisType",
+        "question": "What is the `ThisType<T>` utility used for?",
+        "options": [
+            "To manually specify the type of 'this' in an object literal (requires noImplicitThis).",
+            "To create a new class.",
+            "To refer to the current class name.",
+            "To cast 'this' to any."
+        ],
+        "answer": "To manually specify the type of 'this' in an object literal (requires noImplicitThis).",
+        "explanation": "ThisType is a marker interface that doesn't return a new type but tells the compiler what 'this' should refer to inside an object literal."
+    },
+    {
+        "id": "ts_pat_10",
+        "topic": "Advanced Patterns - NonNullable",
+        "question": "How do you implement `MyNonNullable<T>`?",
+        "options": [
+            "type MyNonNullable<T> = T extends null | undefined ? never : T;",
+            "type MyNonNullable<T> = T!;",
+            "type MyNonNullable<T> = NonNull<T>;",
+            "It is built-in and cannot be manually implemented."
+        ],
+        "answer": "type MyNonNullable<T> = T extends null | undefined ? never : T;",
+        "explanation": "It uses a distributive conditional type to filter out null and undefined from a union."
+    }
+]
