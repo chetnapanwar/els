@@ -1,0 +1,145 @@
+{
+  "message": "Development-Programming Fundamentals - Ts Types Logic",
+  "questions": [
+    {
+      "id": "ts_logic_01",
+      "topic": "Conditional Types",
+      "level": 3,
+      "question": "What does the type `T extends U ? X : Y` represent?",
+      "options": [
+        "If T is assignable to U, the type is X, otherwise Y.",
+        "If T is equal to U, the type is X, otherwise Y.",
+        "A runtime ternary operator.",
+        "A generic constraint."
+      ],
+      "answer": "If T is assignable to U, the type is X, otherwise Y.",
+      "explanation": "This is the standard syntax for Conditional Types in TypeScript, functioning like a type-level ternary operator based on assignability."
+    },
+    {
+      "id": "ts_logic_02",
+      "topic": "Mapped Types - Modifiers",
+      "level": 3,
+      "question": "What does `-?` do in a mapped type like `{ [P in keyof T]-?: T[P] }`?",
+      "options": [
+        "Removes the 'optional' modifier from the property.",
+        "Makes the property optional.",
+        "Removes the property entirely.",
+        "Makes the property readonly."
+      ],
+      "answer": "Removes the 'optional' modifier from the property.",
+      "explanation": "The `-` prefix removes the modifier that follows it. `-?` makes a property required (not optional)."
+    },
+    {
+      "id": "ts_logic_03",
+      "topic": "Utility Types - Exclude",
+      "level": 3,
+      "question": "How is `Exclude<T, U>` implemented?",
+      "options": [
+        "T extends U ? never : T",
+        "T extends U ? T : never",
+        "Keyof T extends U",
+        "{ [P in T]: P }"
+      ],
+      "answer": "T extends U ? never : T",
+      "explanation": "Exclude removes types from T that are assignable to U. It relies on the distributive property of conditional types."
+    },
+    {
+      "id": "ts_logic_04",
+      "topic": "keyof Operator",
+      "level": 3,
+      "question": "What is the type of `keyof any`?",
+      "options": [
+        "string | number | symbol",
+        "string",
+        "any",
+        "never"
+      ],
+      "answer": "string | number | symbol",
+      "explanation": "In JavaScript, object keys can be strings, numbers, or symbols. `keyof any` represents all possible valid key types."
+    },
+    {
+      "id": "ts_logic_05",
+      "topic": "Mapped Types - remapping",
+      "level": 3,
+      "question": "In TS 4.1+, how can you rename keys in a mapped type?",
+      "options": [
+        "Using the 'as' clause: `[K in keyof T as NewKey]: T[K]`",
+        "Using the 'rename' keyword.",
+        "You cannot rename keys.",
+        "Using a template literal type only."
+      ],
+      "answer": "Using the 'as' clause: `[K in keyof T as NewKey]: T[K]`",
+      "explanation": "Key Remapping via `as` allows transforming the keys (e.g., capitalizing them or filtering them out by mapping to `never`)."
+    },
+    {
+      "id": "ts_logic_06",
+      "topic": "Distributive Conditional Types",
+      "level": 3,
+      "question": "When does a conditional type distribute over a union?",
+      "options": [
+        "When the checked type is a naked generic parameter.",
+        "Always.",
+        "Only when wrapped in a tuple `[T]`.",
+        "Never."
+      ],
+      "answer": "When the checked type is a naked generic parameter.",
+      "explanation": "If `T` is a naked generic (e.g., `T extends U`), checking it against a union distributes the condition over each member of the union. Wrapping it like `[T]` prevents distribution."
+    },
+    {
+      "id": "ts_logic_07",
+      "topic": "typeof Operator",
+      "level": 3,
+      "question": "What does `type X = typeof obj` do?",
+      "options": [
+        "Extracts the TypeScript type shape of the runtime value 'obj'.",
+        "Returns the string 'object'.",
+        "Creates a new interface extending obj.",
+        "Compiles to `typeof obj` in JS."
+      ],
+      "answer": "Extracts the TypeScript type shape of the runtime value 'obj'.",
+      "explanation": "In type context, `typeof` captures the static type of a variable or property."
+    },
+    {
+      "id": "ts_logic_08",
+      "topic": "Indexed Access Types",
+      "level": 3,
+      "question": "Given `type T = { a: string, b: number }`, what is `T['a' | 'b']`?",
+      "options": [
+        "string | number",
+        "string",
+        "any",
+        "tuple [string, number]"
+      ],
+      "answer": "string | number",
+      "explanation": "This is an Indexed Access Type (Lookup Type). It resolves to the union of the types of the specified properties."
+    },
+    {
+      "id": "ts_logic_09",
+      "topic": "Template Literal Types",
+      "level": 3,
+      "question": "What is the type of `` `color-${'red' | 'blue'}` ``?",
+      "options": [
+        "'color-red' | 'color-blue'",
+        "string",
+        "'color-${string}'",
+        "Error"
+      ],
+      "answer": "'color-red' | 'color-blue'",
+      "explanation": "Template literal types distribute over unions, creating a union of all possible string combinations."
+    },
+    {
+      "id": "ts_logic_10",
+      "topic": "Intrinsic String Manipulation",
+      "level": 3,
+      "question": "Which of these is a built-in utility type for string manipulation?",
+      "options": [
+        "Uppercase<T>",
+        "Stringify<T>",
+        "ToCase<T>",
+        "Split<T>"
+      ],
+      "answer": "Uppercase<T>",
+      "explanation": "TypeScript provides intrinsic types like Uppercase, Lowercase, Capitalize, and Uncapitalize."
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "message": "Development-Programming Fundamentals - Js Prototypes",
+  "questions": [
+    {
+      "id": "js_proto_01",
+      "topic": "Prototypes - Inheritance",
+      "question": "What is the difference between `Object.create(proto)` and `new MyClass()`?",
+      "options": [
+        "Object.create creates a new object with 'proto' as its prototype; new MyClass executes the constructor and sets the prototype to MyClass.prototype.",
+        "Object.create is faster.",
+        "new MyClass is the only way to create objects in JS.",
+        "Object.create does not support prototypes."
+      ],
+      "answer": "Object.create creates a new object with 'proto' as its prototype; new MyClass executes the constructor and sets the prototype to MyClass.prototype.",
+      "explanation": "Object.create provides a direct way to set the [[Prototype]] without running a constructor function. 'new' is part of the constructor-based inheritance model."
+    },
+    {
+      "id": "js_proto_02",
+      "topic": "Prototypes - Shadowing",
+      "question": "What happens if you assign a value to a property on an object that exists only on its prototype?",
+      "options": [
+        "A new 'own' property is created on the object, shadowing the one on the prototype.",
+        "The value on the prototype is updated for all objects sharing it.",
+        "It throws an error in strict mode.",
+        "The assignment is ignored unless 'Object.defineProperty' is used."
+      ],
+      "answer": "A new 'own' property is created on the object, shadowing the one on the prototype.",
+      "explanation": "Assignment (obj.prop = value) typically creates an own property on the receiver object, even if a property with the same name exists higher in the prototype chain."
+    },
+    {
+      "id": "js_proto_03",
+      "topic": "Prototypes - Function Prototype vs __proto__",
+      "question": "What does `Function.prototype` refer to?",
+      "options": [
+        "The prototype that all functions inherit from.",
+        "The prototype of the Function constructor itself.",
+        "The internal [[Prototype]] of the current function.",
+        "An object containing all function names in the application."
+      ],
+      "answer": "The prototype that all functions inherit from.",
+      "explanation": "In JavaScript, functions are objects. They inherit methods like .call() and .apply() from Function.prototype."
+    },
+    {
+      "id": "js_proto_04",
+      "topic": "Prototypes - Object.getPrototypeOf",
+      "question": "Which method is the standard, modern way to access an object's prototype?",
+      "options": [
+        "Object.getPrototypeOf(obj)",
+        "obj.__proto__",
+        "obj.prototype",
+        "obj.getProto()"
+      ],
+      "answer": "Object.getPrototypeOf(obj)",
+      "explanation": "While `__proto__` is widely supported for legacy reasons, `Object.getPrototypeOf()` and `Object.setPrototypeOf()` are the official standard methods."
+    },
+    {
+      "id": "js_proto_05",
+      "topic": "Prototypes - Prototype Chain Termination",
+      "question": "What is the top of the prototype chain for most objects?",
+      "options": [
+        "Object.prototype",
+        "null",
+        "Function.prototype",
+        "undefined"
+      ],
+      "answer": "null",
+      "explanation": "Standard objects inherit from Object.prototype. Object.prototype's own [[Prototype]] is null, which ends the search chain."
+    },
+    {
+      "id": "js_proto_06",
+      "topic": "Prototypes - Native Prototypes",
+      "question": "Why is modifying native prototypes (like Array.prototype.myFunc = ...) generally considered a bad practice?",
+      "options": [
+        "It can cause collisions with future JS versions or other libraries.",
+        "It makes the application slower.",
+        "It is forbidden by the JS engine.",
+        "It only works in non-strict mode."
+      ],
+      "answer": "It can cause collisions with future JS versions or other libraries.",
+      "explanation": "This is known as 'monkey patching'. If a future version of JS adds a native method with the same name, your code may break or cause unexpected behavior."
+    },
+    {
+      "id": "js_proto_07",
+      "topic": "Prototypes - Performance",
+      "question": "How does deep prototype chains affect property lookup performance?",
+      "options": [
+        "Each level in the chain adds overhead to the lookup process.",
+        "JS engines cache all properties, so it has no effect.",
+        "Deep chains are faster because of delegation.",
+        "Lookup is always O(1) regardless of chain depth."
+      ],
+      "answer": "Each level in the chain adds overhead to the lookup process.",
+      "explanation": "The engine must traverse each link in the [[Prototype]] chain until it finds the property or hits null. Modern engines optimize this with 'inline caches', but extremely deep chains can still impact performance."
+    },
+    {
+      "id": "js_proto_08",
+      "topic": "Prototypes - Property Descriptors",
+      "question": "If a prototype property has `writable: false`, what happens when you try to assign to it on an inheriting object in strict mode?",
+      "options": [
+        "It throws a TypeError.",
+        "It creates an own property anyway.",
+        "It silently fails.",
+        "It updates the prototype."
+      ],
+      "answer": "It throws a TypeError.",
+      "explanation": "If a non-writable property exists on the prototype, you cannot create an own property with the same name via simple assignment. You must use Object.defineProperty."
+    },
+    {
+      "id": "js_proto_09",
+      "topic": "Prototypes - Constructor Property",
+      "question": "What is the value of `obj.constructor` if `obj` was created via `new MyClass()`?",
+      "options": [
+        "MyClass",
+        "MyClass.prototype",
+        "Object",
+        "Function"
+      ],
+      "answer": "MyClass",
+      "explanation": "By default, `MyClass.prototype` has a `constructor` property that points back to `MyClass`. Since `obj` inherits from that prototype, it 'sees' the constructor property."
+    },
+    {
+      "id": "js_proto_10",
+      "topic": "Prototypes - null Objects",
+      "question": "How do you create an object that has NO prototype (and thus no methods like .toString or .hasOwnProperty)?",
+      "options": [
+        "Object.create(null)",
+        "{}",
+        "new Object(null)",
+        "Object.freeze({})"
+      ],
+      "answer": "Object.create(null)",
+      "explanation": "Passing null to Object.create results in an 'absolute' object with no inheritance chain."
+    }
+  ]
+}

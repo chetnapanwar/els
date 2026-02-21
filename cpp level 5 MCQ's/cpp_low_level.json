@@ -1,0 +1,145 @@
+{
+  "message": "Development-Programming Fundamentals - Cpp Low Level",
+  "questions": [
+    {
+      "id": "cpp_low_01",
+      "topic": "Low-level - SIMD Intrinsics",
+      "level": 5,
+      "question": "When using SSE/AVX intrinsics (e.g., `_mm_add_ps`), what is the primary prerequisite for the memory addresses being loaded into `__m128` registers for maximum performance?",
+      "options": [
+        "The memory must be 16-byte (SSE) or 32-byte (AVX) aligned.",
+        "The memory must be stored in the GPU VRAM.",
+        "The objects must be declared as `volatile`.",
+        "The addresses must be prime numbers."
+      ],
+      "answer": "The memory must be 16-byte (SSE) or 32-byte (AVX) aligned.",
+      "explanation": "Unaligned loads/stores can incur significant performance penalties on older architectures, and some instructions (like `MOVAPS`) will cause a hardware exception if the data is not properly aligned to the register size."
+    },
+    {
+      "id": "cpp_low_02",
+      "topic": "Low-level - ABI",
+      "level": 5,
+      "question": "What is the 'Opaque Pointer' (or PIMPL) idiom primarily used for in C++ library design?",
+      "options": [
+        "To provide binary compatibility (ABI stability) by hiding implementation details and reducing compile-time dependencies.",
+        "To speed up runtime execution by bypassing virtual functions.",
+        "To automatically encrypt pointers for security.",
+        "To allow multiple classes to share the same memory address."
+      ],
+      "answer": "To provide binary compatibility (ABI stability) by hiding implementation details and reducing compile-time dependencies.",
+      "explanation": "PIMPL (Pointer to Implementation) allows changing the internal structure of a class without changing the size or layout of the object as seen by the library's consumers, preventing ABI breakage."
+    },
+    {
+      "id": "cpp_low_03",
+      "topic": "Low-level - Tail Call Optimization",
+      "level": 5,
+      "question": "What condition must a recursive function meet for a modern C++ compiler to reliably perform Tail Call Optimization (TCO)?",
+      "options": [
+        "The recursive call must be the very last operation in the function, with its result returned directly.",
+        "The function must be marked `constexpr`.",
+        "The function must be inlined into the caller.",
+        "TCO is only possible for functions with zero arguments."
+      ],
+      "answer": "The recursive call must be the very last operation in the function, with its result returned directly.",
+      "explanation": "If no work remains after the recursive call, the compiler can overwrite the current stack frame instead of creating a new one, turning recursion into a loop and preventing stack overflow."
+    },
+    {
+      "id": "cpp_low_04",
+      "topic": "Low-level - Inline Assembly",
+      "level": 5,
+      "question": "In GCC/Clang 'Extended Asm', what is the purpose of the 'clobber list'?",
+      "options": [
+        "To list registers or memory that are modified by the assembly code but were not listed as outputs, allowing the compiler to save/restore them.",
+        "To list inputs that should be deleted after use.",
+        "To indicate that the assembly code is dangerous and should be ignored during optimization.",
+        "To provide a list of local variables used in the assembly block."
+      ],
+      "answer": "To list registers or memory that are modified by the assembly code but were not listed as outputs, allowing the compiler to save/restore them.",
+      "explanation": "If you modify a register (like `eax`) inside `asm`, the compiler needs to know so it doesn't assume the register still contains whatever it was using it for previously."
+    },
+    {
+      "id": "cpp_low_05",
+      "topic": "Low-level - LTO",
+      "level": 5,
+      "question": "What is 'Link-Time Optimization' (LTO) and how does it differ from standard optimization?",
+      "options": [
+        "LTO performs optimizations across multiple translation units by passing intermediate code to the linker.",
+        "LTO only optimizes the speed of the linking process itself.",
+        "LTO is a runtime optimization performed by the OS loader.",
+        "LTO converts C++ code into assembly before compilation."
+      ],
+      "answer": "LTO performs optimizations across multiple translation units by passing intermediate code to the linker.",
+      "explanation": "Normally, optimization is limited to one `.cpp` file. LTO allows the compiler to see the whole program at once, enabling cross-file inlining and dead code elimination."
+    },
+    {
+      "id": "cpp_low_06",
+      "topic": "Low-level - Name Mangling",
+      "level": 5,
+      "question": "Why is `extern \"C\"` used when calling a C++ function from C code?",
+      "options": [
+        "To disable C++ name mangling and use the standard C symbol naming convention (e.g., just the function name).",
+        "To tell the compiler that the code is written in C.",
+        "To enable C++ features like exceptions inside the C code.",
+        "To prevent the linker from checking type safety."
+      ],
+      "answer": "To disable C++ name mangling and use the standard C symbol naming convention (e.g., just the function name).",
+      "explanation": "C++ mangles names to support function overloading (adding type info to the symbol name). C does not understand mangled names, so symbols must be exposed with C-style linkage."
+    },
+    {
+      "id": "cpp_low_07",
+      "topic": "Low-level - vtable layout",
+      "level": 5,
+      "question": "In most ABI implementations (like Itanium), where is the 'vptr' (virtual pointer) typically stored in an object?",
+      "options": [
+        "At the very beginning of the object's memory layout.",
+        "At the end of the object.",
+        "In a separate global hash table.",
+        "In the CPU's L1 cache only."
+      ],
+      "answer": "At the very beginning of the object's memory layout.",
+      "explanation": "By placing the vptr at offset 0, the code can access the virtual table regardless of the actual derived type's size, simplifyng polymorphism."
+    },
+    {
+      "id": "cpp_low_08",
+      "topic": "Low-level - Type Punning",
+      "level": 5,
+      "question": "What is the 'Strict Aliasing Rule' in C/C++, and how can it be safely bypassed for raw bit manipulation?",
+      "options": [
+        "Multiple pointers of incompatible types cannot point to the same memory; bypassed via `std::memcpy` or `std::bit_cast` (C++20).",
+        "Pointers must always point to the same type they were declared as; bypassed by using `reinterpret_cast`.",
+        "Pointers cannot be cast to integers; bypassed by using `long long`.",
+        "It is a linker rule for preventing duplicate symbols."
+      ],
+      "answer": "Multiple pointers of incompatible types cannot point to the same memory; bypassed via `std::memcpy` or `std::bit_cast` (C++20).",
+      "explanation": "Casting a `float*` to `int*` and dereferencing it is Undefined Behavior because the compiler assumes they don't alias and can reorder them incorrectly. `bit_cast` is the safe, modern solution."
+    },
+    {
+      "id": "cpp_low_09",
+      "topic": "Low-level - Branch Prediction",
+      "level": 5,
+      "question": "What is 'Code Alignment' and why do some hot loops perform better after adding `NOP` or alignment padding?",
+      "options": [
+        "Aligning branch targets (like start of loops) to cache line or fetch boundaries (e.g., 16/32 bytes) minimizes instruction fetch stalls.",
+        "It ensures that the loops are 64-bit compatible.",
+        "It makes the binary file smaller.",
+        "It prevents the CPU from over-heating."
+      ],
+      "answer": "Aligning branch targets (like start of loops) to cache line or fetch boundaries (e.g., 16/32 bytes) minimizes instruction fetch stalls.",
+      "explanation": "CPUs fetch instructions in blocks. If a loop start spans two cache lines, it requires two fetches per iteration. Alignment keeps the 'hot' code inside one fetch block."
+    },
+    {
+      "id": "cpp_low_10",
+      "topic": "Low-level - Weak Symbols",
+      "level": 5,
+      "question": "What is a 'Weak Symbol' in the context of ELF linking?",
+      "options": [
+        "A symbol that can be overridden by a 'strong' symbol (regular definition) without causing a multiple-definition error.",
+        "A symbol that is deleted by the linker if not used.",
+        "A symbol that only exists in debug builds.",
+        "A pointer that is automatically set to NULL by the OS."
+      ],
+      "answer": "A symbol that can be overridden by a 'strong' symbol (regular definition) without causing a multiple-definition error.",
+      "explanation": "Weak symbols allow libraries to provide default implementations that users can replace with their own custom logic just by defining a regular symbol with the same name."
+    }
+  ]
+}

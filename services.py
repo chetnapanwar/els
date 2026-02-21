@@ -1,38 +1,49 @@
-from typing import List, Dict
-from fastapi import HTTPException
-import schemas
+from sqlalchemy.orm import Session
+from fastapi import HTTPException, status
+import models, schemas
 
 class UserService:
-    def __init__(self):
-        self._users: List[Dict] = []
-        self._id_counter = 1
-
-    def create_user(self, user_data: schemas.UserCreate) -> Dict:
-        # Check if email or username already exists
-        for user in self._users:
-            if user["email"] == user_data.email:
-                raise HTTPException(status_code=400, detail="Email already registered")
-            if user["username"] == user_data.username:
-                raise HTTPException(status_code=400, detail="Username already taken")
+    def create_user(self, db: Session, user_data: schemas.UserCreate):
+        # Check if user already exists
+        db_user = db.query(models.User).filter(
+            (models.User.email == user_data.email) | 
+            (models.User.username == user_data.username)
+        ).first()
         
-        new_user = {
-            "id": self._id_counter,
-            "username": user_data.username,
-            "email": user_data.email,
-            "password": user_data.password
-        }
-        self._users.append(new_user)
-        self._id_counter += 1
+        if db_user:
+            if db_user.email == user_data.email:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST, 
+                    detail="Email already registered"
+                )
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, 
+                detail="Username already taken"
+            )
+
+        # Create new user instance
+        new_user = models.User(
+            username=user_data.username,
+            email=user_data.email,
+            password=user_data.password  # Note: Ideally hash this in a real app
+        )
+        
+        db.add(new_user)
+        db.commit()
+        db.refresh(new_user)
         return new_user
 
-    def get_all_users(self) -> List[Dict]:
-        return self._users
+    def get_all_users(self, db: Session):
+        return db.query(models.User).all()
 
-    def get_user_by_id(self, user_id: int) -> Dict:
-        for user in self._users:
-            if user["id"] == user_id:
-                return user
-        raise HTTPException(status_code=404, detail="User not found")
+    def get_user_by_id(self, db: Session, user_id: int):
+        user = db.query(models.User).filter(models.User.id == user_id).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, 
+                detail="User not found"
+            )
+        return user
 
 # Global service instance
 user_service = UserService()
