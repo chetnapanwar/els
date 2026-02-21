@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "Which of the following describes the 'Strict Aliasing Rule' in C/C++?",
+    "options": {
+      "A": "It requires all pointers to be initialized to NULL.",
+      "B": "It allows the compiler to assume that pointers of different types do not point to the same memory location (with some exceptions like char*).",
+      "C": "It prevents the use of 'void*' pointers.",
+      "D": "It forces all variables to be stored in the CPU registers."
+    },
+    "answer": "B",
+    "explanation": "Strict aliasing allows compilers to optimize memory accesses by assuming that objects of significantly different types (e.g., int and float) do not overlap in memory."
+  },
+  {
+    "id": 2,
+    "question": "What is the primary purpose of 'SFINAE' (Substitution Failure Is Not An Error) in C++ template metaprogramming?",
+    "options": {
+      "A": "To catch syntax errors in template definitions at compile time.",
+      "B": "To allow the compiler to discard invalid template overloads during overload resolution without failing the entire compilation.",
+      "C": "To speed up the execution of template-heavy code.",
+      "D": "To automatically convert pointers to references."
+    },
+    "answer": "B",
+    "explanation": "SFINAE is a fundamental technique used in template metaprogramming to enable or disable template functions based on some condition, by intentionally making a substitution fail."
+  },
+  {
+    "id": 3,
+    "question": "In the C++ memory model, what does 'std::memory_order_relaxed' guarantee?",
+    "options": {
+      "A": "Total global ordering of all atomic operations.",
+      "B": "Atomicity of the operation, but no synchronization or ordering constraints for other memory accesses.",
+      "C": "That the operation will wait for all threads to reach a barrier.",
+      "D": "That the operation is performed on the heap."
+    },
+    "answer": "B",
+    "explanation": "Relaxed memory ordering only guarantees that the operation itself is atomic. It does not impose any ordering restrictions on other memory operations around it, making it highly efficient but difficult to use correctly."
+  },
+  {
+    "id": 4,
+    "question": "What is the 'Curiously Recurring Template Pattern' (CRTP) primarily used for?",
+    "options": {
+      "A": "Recursive function calls at runtime.",
+      "B": "Static polymorphism (achieving polymorphic behavior at compile time without virtual functions).",
+      "C": "Memory leakage detection.",
+      "D": "Sorting template arguments."
+    },
+    "answer": "B",
+    "explanation": "CRTP involves a class inheriting from a template class using itself as a template parameter. It is used for static polymorphism, which avoids the overhead of virtual table lookups."
+  },
+  {
+    "id": 5,
+    "question": "Which C++20 feature allows for compile-time constraints on template arguments, providing better error messages than static_assert?",
+    "options": {
+      "A": "Reflectors",
+      "B": "Concepts",
+      "C": "Modules",
+      "D": "Coroutines"
+    },
+    "answer": "B",
+    "explanation": "Concepts provide a set of requirements on template arguments. If a type does not meet the concept requirements, the compiler can provide a clear error message during overload resolution."
+  },
+  {
+    "id": 6,
+    "question": "When using 'placement new' in C++, what is the programmer's responsibility regarding destruction?",
+    "options": {
+      "A": "Use 'delete' as usual.",
+      "B": "The object is automatically destroyed when it goes out of scope.",
+      "C": "Explicitly call the object's destructor using 'obj->~T()', but do not use 'delete'.",
+      "D": "No destruction is necessary for placement new."
+    },
+    "answer": "C",
+    "explanation": "Placement new constructs an object in pre-allocated memory. Since 'delete' would try to free that memory (which it shouldn't), you must call the destructor manually and then handle the memory separately."
+  },
+  {
+    "id": 7,
+    "question": "What does 'std::launder' (introduced in C++17) solve?",
+    "options": {
+      "A": "Clearing sensitive data from memory.",
+      "B": "Accessing an object created via placement new when the original pointer would otherwise be invalid due to pointer aliasing or const/reference members.",
+      "C": "Automatic memory pool management.",
+      "D": "Conversion between little-endian and big-endian."
+    },
+    "answer": "B",
+    "explanation": "std::launder is a core language utility that tells the compiler that an object exists at a specific address, even if the compiler's optimization rules might otherwise assume it's unreachable or doesn't exist."
+  },
+  {
+    "id": 8,
+    "question": "In a lock-free data structure, what is the 'ABA problem'?",
+    "options": {
+      "A": "A collision in a hash table.",
+      "B": "A condition where a memory location is changed from A to B and back to A, causing a Compare-and-Swap (CAS) to succeed incorrectly.",
+      "C": "A deadlock between two threads.",
+      "D": "Incompatible binary interfaces."
+    },
+    "answer": "B",
+    "explanation": "The ABA problem occurs when a thread reads a value A, another thread changes it to B and then back to A. The first thread then performs a CAS, which succeeds because it sees A, even though the state has changed in between."
+  },
+  {
+    "id": 9,
+    "question": "What is the role of a 'vtable' (virtual method table) in C++?",
+    "options": {
+      "A": "To store static variables of a class.",
+      "B": "To facilitate dynamic dispatch for virtual functions by storing pointers to the correct function implementations for a given class.",
+      "C": "To manage memory allocation for objects.",
+      "D": "To handle exception propagation."
+    },
+    "answer": "B",
+    "explanation": "The vtable is an internal compiler mechanism used to support dynamic polymorphism. Each class with virtual functions has a vtable, and objects have a pointer (vptr) to that table."
+  },
+  {
+    "id": 10,
+    "question": "What does the 'noexcept' specifier guarantee to the compiler in C++11 and later?",
+    "options": {
+      "A": "That the function will never return a value.",
+      "B": "That the function will not throw any exceptions, allowing for optimizations like faster 'std::vector' reallocations.",
+      "C": "That the function is thread-safe.",
+      "D": "That the function is pure (has no side effects)."
+    },
+    "answer": "B",
+    "explanation": "noexcept allows the compiler to optimize code paths, particularly in container moves. If a noexcept function does throw, the program calls std::terminate() immediately."
+  }
+]
