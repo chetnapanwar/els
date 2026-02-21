@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "question": "Which TypeScript feature allows you to create a new type by transforming each property in an existing type?",
+        "options": {
+            "A": "Conditional Types",
+            "B": "Mapped Types",
+            "C": "Template Literal Types",
+            "D": "Recursive Types"
+        },
+        "answer": "B",
+        "explanation": "Mapped types allow you to take an existing type and create a new one where each property is transformed, e.g., { [P in keyof T]: T[P] }."
+    },
+    {
+        "id": 2,
+        "question": "In the JavaScript Event Loop, which of the following is executed first after the current execution stack is empty?",
+        "options": {
+            "A": "setTimeout callbacks (Macrotasks)",
+            "B": "Promise.then() callbacks (Microtasks)",
+            "C": "setInterval callbacks",
+            "D": "I/O callbacks"
+        },
+        "answer": "B",
+        "explanation": "Microtasks (like Promise.then() and process.nextTick in Node.js) have higher priority than macrotasks (like setTimeout) and are processed immediately after the current script and before the next macrotask."
+    },
+    {
+        "id": 3,
+        "question": "What is the purpose of the 'Reflect' API in JavaScript?",
+        "options": {
+            "A": "To create a mirror copy of an object.",
+            "B": "To provide a set of static methods for interceptable JavaScript operations, often used alongside Proxies.",
+            "C": "To handle exception propagation automatically.",
+            "D": "To perform deep cloning of complex objects."
+        },
+        "answer": "B",
+        "explanation": "The Reflect object provides methods for interceptable operations, making it easier to forward Proxy traps to the original object using the same method signatures."
+    },
+    {
+        "id": 4,
+        "question": "Given 'type T = T1 extends T2 ? A : B', what happens if T1 is a union type like 'string | number' in TypeScript?",
+        "options": {
+            "A": "It results in a compiler error.",
+            "B": "It is distributed, behaving as '(string extends T2 ? A : B) | (number extends T2 ? A : B)'.",
+            "C": "It only checks the first type in the union.",
+            "D": "It resolves to 'any'."
+        },
+        "answer": "B",
+        "explanation": "Conditional types are distributive in TypeScript. When the checked type is a naked type parameter and it's a union, the conditional type is applied to each member of the union."
+    },
+    {
+        "id": 5,
+        "question": "What does a JavaScript Proxy 'trap' refer to?",
+        "options": {
+            "A": "An error handling block.",
+            "B": "A method that provides access to an object's internal state.",
+            "C": "A specific handler method used to intercept and redefine operations (like 'get' or 'set') on the target object.",
+            "D": "A way to prevent an object from being modified."
+        },
+        "answer": "C",
+        "explanation": "Traps are the methods provided within the handler object of a Proxy to intercept internal operations of the target object."
+    },
+    {
+        "id": 6,
+        "question": "Which feature of TypeScript allows for defining an object's keys based on a specific string pattern using template literals?",
+        "options": {
+            "A": "String Mapping Types",
+            "B": "Template Literal Types",
+            "C": "Pattern Matching Types",
+            "D": "Regex Types"
+        },
+        "answer": "B",
+        "explanation": "Template literal types (introduced in TS 4.1) allow you to build new string types by combining other types into a string template, used often in mapped types for key remapping."
+    },
+    {
+        "id": 7,
+        "question": "In JavaScript, what is the 'Temporal Dead Zone' (TDZ)?",
+        "options": {
+            "A": "A region in memory where garbage collection cannot happen.",
+            "B": "The period from entering the scope until the variable declaration is reached, where accessing 'let' or 'const' variables results in a ReferenceError.",
+            "C": "The time it takes for a promise to resolve.",
+            "D": "A delay in the execution of the event loop."
+        },
+        "answer": "B",
+        "explanation": "Variables declared with 'let' and 'const' are hoisted but not initialized. Accessing them before their declaration line in the code results in a ReferenceError due to the TDZ."
+    },
+    {
+        "id": 8,
+        "question": "What is the primary difference between 'any' and 'unknown' in TypeScript?",
+        "options": {
+            "A": "There is no difference.",
+            "B": "'any' is type-safe, while 'unknown' is not.",
+            "C": "'unknown' is the type-safe counterpart of 'any' and requires a type check or cast before performing operations on the variable.",
+            "D": "'any' can only store objects, while 'unknown' can store anything."
+        },
+        "answer": "C",
+        "explanation": "'unknown' is a top type like 'any', but it is safer because the compiler forces you to verify the type before you can use it (e.g., calling a method on it)."
+    },
+    {
+        "id": 9,
+        "question": "Which JavaScript method is used to determine if an object is non-extensible and its properties are non-configurable and non-writable?",
+        "options": {
+            "A": "Object.isFrozen()",
+            "B": "Object.isSealed()",
+            "C": "Object.isExtensible()",
+            "D": "Object.isProtected()"
+        },
+        "answer": "A",
+        "explanation": "Object.isFrozen() returns true if the object is non-extensible, all its properties are non-configurable, and all its data properties are non-writable."
+    },
+    {
+        "id": 10,
+        "question": "In TypeScript, what does the 'infer' keyword do within a conditional type?",
+        "options": {
+            "A": "It automatically converts a type to its base class.",
+            "B": "It allows you to declare a type variable to be 'inferred' from the type being checked in the extends clause.",
+            "C": "It tells the compiler to guess the return type of a function.",
+            "D": "It forces a variable to be of type 'any'."
+        },
+        "answer": "B",
+        "explanation": "The 'infer' keyword is used within the 'extends' clause of a conditional type to capture part of the checked type into a new type variable for use in the true branch."
+    }
+]
