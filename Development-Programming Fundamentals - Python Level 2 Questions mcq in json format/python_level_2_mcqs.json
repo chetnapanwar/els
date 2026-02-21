@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "question": "Which of the following is the correct way to create a 'deque' with a maximum length of 5 in Python?",
+        "options": {
+            "A": "collections.deque(maxlen=5)",
+            "B": "collections.deque(5)",
+            "C": "collections.deque(limit=5)",
+            "D": "collections.deque(size=5)"
+        },
+        "answer": "A",
+        "explanation": "The 'maxlen' parameter in collections.deque restricts the deque to a fixed size. If new items are added when it's full, the oldest items are automatically discarded."
+    },
+    {
+        "id": 2,
+        "question": "In Python's functional programming, what does the 'map()' function return in Python 3.x?",
+        "options": {
+            "A": "A list",
+            "B": "A tuple",
+            "C": "A map object (iterator)",
+            "D": "A dictionary"
+        },
+        "answer": "C",
+        "explanation": "In Python 3.x, map() returns an iterator (a map object) rather than a list to save memory. You must wrap it in list() if you need the actual list."
+    },
+    {
+        "id": 3,
+        "question": "Which statement about Python decorators is true?",
+        "options": {
+            "A": "They can only be used on classes, not functions.",
+            "B": "They are a way to modify or enhance the behavior of a function or class without permanently changing its source code.",
+            "C": "They must always return None.",
+            "D": "They are denoted by the '%' symbol."
+        },
+        "answer": "B",
+        "explanation": "Decorators allow you to 'wrap' another function in order to extend the behavior of the wrapped function without permanently modifying it."
+    },
+    {
+        "id": 4,
+        "question": "What will 'yield' do inside a function body?",
+        "options": {
+            "A": "It terminates the function and returns a final value.",
+            "B": "It turns the function into a generator and pauses execution, returning a value to the caller.",
+            "C": "It acts as a placeholder for an empty function.",
+            "D": "It imports a module only when needed."
+        },
+        "answer": "B",
+        "explanation": "The 'yield' keyword is used to create a generator function. It produces a sequence of values over time, pausing execution after each value is yielded."
+    },
+    {
+        "id": 5,
+        "question": "What is the purpose of the 'itertools.chain()' function?",
+        "options": {
+            "A": "To perform cryptographic hashing.",
+            "B": "To link multiple iterables together and iterate through them as a single sequence.",
+            "C": "To create a linked list.",
+            "D": "To sort multiple lists simultaneously."
+        },
+        "answer": "B",
+        "explanation": "itertools.chain() takes several iterables as arguments and returns an iterator that yields elements from each iterable in turn."
+    },
+    {
+        "id": 6,
+        "question": "Which of these allows you to define a context manager using a generator function instead of a class?",
+        "options": {
+            "A": "contextlib.contextmanager",
+            "B": "functools.wraps",
+            "C": "itertools.cycle",
+            "D": "collections.OrderedDict"
+        },
+        "answer": "A",
+        "explanation": "The @contextlib.contextmanager decorator lets you turn a generator (using yield) into a context manager that can be used with the 'with' statement."
+    },
+    {
+        "id": 7,
+        "question": "What is the result of using 'isinstance(obj, ClassName)' if 'obj' is an instance of a subclass of 'ClassName'?",
+        "options": {
+            "A": "False",
+            "B": "True",
+            "C": "An AttributeError is raised.",
+            "D": "None"
+        },
+        "answer": "B",
+        "explanation": "isinstance() returns True if the object is an instance of the specified class or a subclass thereof."
+    },
+    {
+        "id": 8,
+        "question": "What does the '@property' decorator do in a Python class?",
+        "options": {
+            "A": "It makes a method private.",
+            "B": "It allows a method to be accessed like an attribute (a getter).",
+            "C": "It creates a database property.",
+            "D": "It deletes a class attribute."
+        },
+        "answer": "B",
+        "explanation": "The @property decorator is used to define 'getter' methods, allowing you to access method logic as if it were a simple variable."
+    },
+    {
+        "id": 9,
+        "question": "Which module would you use to provide high-performance counter tools for counting hashable objects?",
+        "options": {
+            "A": "math",
+            "B": "random",
+            "C": "collections",
+            "D": "bisect"
+        },
+        "answer": "C",
+        "explanation": "collections.Counter is a dictionary subclass specifically designed for counting hashable objects."
+    },
+    {
+        "id": 10,
+        "question": "In Python, which of the following represents a 'shallow copy' of a list called 'old_list'?",
+        "options": {
+            "A": "new_list = old_list.copy()",
+            "B": "new_list = old_list[:]",
+            "C": "new_list = list(old_list)",
+            "D": "All of the above"
+        },
+        "answer": "D",
+        "explanation": "All three methods (.copy(), slicing [:], and the list() constructor) create a shallow copy of the top-level list object."
+    }
+]
